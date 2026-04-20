@@ -14,6 +14,7 @@ typedef struct {
     kv_entry *entries;
 } kv_t;
 
-kv_t *kv_init (size_t capacity);
+kv_t *kv_init(size_t capacity);
+void kv_free(kv_t *db);
 
 #endif

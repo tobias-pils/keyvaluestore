@@ -12,16 +12,21 @@ kv_t *kv_init (size_t capacity) {
         return NULL;
     }
 
-    kv_t *table = malloc(sizeof(kv_t));
-    if (table == NULL) {
+    kv_t *db = malloc(sizeof(kv_t));
+    if (db == NULL) {
         free(entries);
         printf("Failed to allocate memory\n");
         return NULL;
     }
 
-    table->capacity = capacity;
-    table->count = 0;
-    table->entries = entries;
+    db->capacity = capacity;
+    db->count = 0;
+    db->entries = entries;
 
-    return table;
+    return db;
+}
+
+void kv_free(kv_t *db) {
+    free(db->entries);
+    free(db);
 }
