@@ -6,7 +6,7 @@
 kv_t *kv_init (size_t capacity) {
     if (capacity < 1) return NULL;
 
-    kv_entry *entries = calloc(sizeof(kv_entry), capacity);
+    kv_entry_t *entries = calloc(sizeof(kv_entry_t), capacity);
     if (entries == NULL) {
         printf("Failed to allocate memory\n");
         return NULL;
