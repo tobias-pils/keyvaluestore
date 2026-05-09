@@ -14,7 +14,10 @@ typedef struct {
     kv_entry_t *entries;
 } kv_t;
 
+void kv_print_db(kv_t *db);
 kv_t *kv_init(size_t capacity);
 void kv_free(kv_t *db);
+int kv_put(kv_t *db, char *key, char *value);
+int kv_delete(kv_t *db, char *key);
 
 #endif
