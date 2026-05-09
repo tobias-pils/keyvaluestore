@@ -145,6 +145,8 @@ int kv_delete(kv_t *db, char *key) {
         if (entry->key == (void *)TOMBSTONE) continue;
 
         if (!strcmp(entry->key, key)) {
+            free(entry->key);
+            free(entry->value);
             entry->key = (void *)TOMBSTONE;
             entry->value = NULL;
             db->count--;
