@@ -48,6 +48,16 @@ kv_t *kv_init (size_t capacity) {
 }
 
 void kv_free(kv_t *db) {
+    if (!db) return;
+
+    for (size_t i = 0; i < db->capacity; i++) {
+        kv_entry_t *entry = &db->entries[i];
+        if (entry->key && entry->key != (void *)TOMBSTONE) {
+            free(entry->key);
+            free(entry->value);
+        }
+    }
+
     free(db->entries);
     free(db);
 }
@@ -73,7 +83,7 @@ int kv_put(kv_t *db, char *key, char *value) {
     bool tombstone_hit = false;
     size_t tombstone_idx = 0;
 
-    for (int i = 0; i < db->capacity; i++) {
+    for (size_t i = 0; i < db->capacity; i++) {
         size_t real_idx = (idx + i) % db->capacity;
 
         kv_entry_t *entry = &db->entries[real_idx];
@@ -135,7 +145,7 @@ int kv_delete(kv_t *db, char *key) {
 
     size_t idx = hash(key, db->capacity);
 
-    for (int i = 0; i < db->capacity; i++) {
+    for (size_t i = 0; i < db->capacity; i++) {
         size_t real_idx = (idx + i) % db->capacity;
 
         kv_entry_t *entry = &db->entries[real_idx];
@@ -162,7 +172,7 @@ char *kv_get(kv_t *db, char *key) {
 
     size_t idx = hash(key, db->capacity);
 
-    for (int i = 0; i < db->capacity; i++) {
+    for (size_t i = 0; i < db->capacity; i++) {
         size_t real_idx = (idx + i) % db->capacity;
 
         kv_entry_t *entry = &db->entries[real_idx];
