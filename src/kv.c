@@ -154,3 +154,25 @@ int kv_delete(kv_t *db, char *key) {
     
     return -1;
 }
+
+char *kv_get(kv_t *db, char *key) {
+    if (!db || !key) return NULL;
+
+    size_t idx = hash(key, db->capacity);
+
+    for (int i = 0; i < db->capacity; i++) {
+        size_t real_idx = (idx + i) % db->capacity;
+
+        kv_entry_t *entry = &db->entries[real_idx];
+
+        if (!entry->key) return NULL;
+
+        if (entry->key == (void *)TOMBSTONE) continue;
+
+        if (!strcmp(entry->key, key)) {
+            return entry->value;
+        }
+    }
+    
+    return NULL;
+}

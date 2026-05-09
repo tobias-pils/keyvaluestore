@@ -11,12 +11,36 @@ int main() {
     assert(db->capacity == DB_SIZE);
     assert(db->count == 0);
 
+    char *result = kv_get(db, "foo");
+    if (result) {
+        printf("Found foo: %s\n", result);
+    } else {
+        printf("foo not found\n");
+    }
+
     kv_put(db, "hallo", "welt");
     kv_put(db, "bli", "blu");
     kv_put(db, "foo", "bar");
     kv_put(db, "new", "value");
     kv_put(db, "last", "one");
     kv_print_db(db);
+
+    result = kv_get(db, "foo");
+    if (result) {
+        printf("Found foo: %s\n", result);
+    } else {
+        printf("foo not found\n");
+    }
+
+    kv_put(db, "foo", "haaaallllooooo");
+    kv_print_db(db);
+
+    result = kv_get(db, "foo");
+    if (result) {
+        printf("Found foo: %s\n", result);
+    } else {
+        printf("foo not found\n");
+    }
 
     kv_delete(db, "bli");
     kv_delete(db, "new");
@@ -26,15 +50,12 @@ int main() {
     kv_delete(db, "foo");
     kv_print_db(db);
 
-    kv_put(db, "test1", "123");
-    kv_print_db(db);
-    kv_put(db, "test1", "987");
-    kv_print_db(db);
-    kv_put(db, "test2", "123");
-    kv_put(db, "test3", "123");
-    kv_put(db, "test4", "123");
-    kv_put(db, "test5", "123");
-    kv_print_db(db);
+    result = kv_get(db, "foo");
+    if (result) {
+        printf("Found foo: %s\n", result);
+    } else {
+        printf("foo not found\n");
+    }
 
     kv_free(db);
 
