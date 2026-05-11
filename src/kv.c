@@ -115,6 +115,7 @@ int kv_put(kv_t *db, char *key, char *value) {
         if (!strcmp(entry->key, key)) {
             char *newvalue = strdup(value);
             if (!newvalue) return -1;
+            free(entry->value);
             entry->value = newvalue;
             return 0;
         }

@@ -10,6 +10,7 @@ int main() {
 
     kv_put(db, "name", "alice");
     kv_put(db, "city", "berlin");
+    kv_put(db, "city", "vienna");
     kv_put(db, "lang", "c");
 
     kv_delete(db, "city");
